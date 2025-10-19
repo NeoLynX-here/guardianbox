@@ -6,9 +6,7 @@ import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_PATH = path.join(__dirname, 'guardianbox.db');
-
-const db = new Database(DB_PATH);
+const db = new Database(path.join(__dirname, 'guardianbox.db'));
 
 export function initDb() {
   db.prepare(`
@@ -32,9 +30,7 @@ export function insertFile(record) {
 }
 
 export function getFile(id) {
-  return db.prepare(`
-    SELECT * FROM files WHERE id = ?
-  `).get(id);
+  return db.prepare(`SELECT * FROM files WHERE id = ?`).get(id);
 }
 
 export function incrementDownloads(id) {
@@ -43,11 +39,10 @@ export function incrementDownloads(id) {
 
 export function deleteFile(id) {
   const rec = getFile(id);
-  if (!rec) return;
-  try {
-    fs.unlinkSync(rec.storage_path);
-  } catch {}
-  db.prepare(`DELETE FROM files WHERE id = ?`).run(id);
+  if (rec) {
+    try { fs.unlinkSync(rec.storage_path); } catch {}
+    db.prepare(`DELETE FROM files WHERE id = ?`).run(id);
+  }
 }
 
 export function listAllFiles() {
