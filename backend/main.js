@@ -5,13 +5,9 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  initDb, insertFile, getFile, incrementDownloads, deleteFile
-} from './db.js';
+import { initDb, insertFile, getFile, incrementDownloads, deleteFile } from './db.js';
 import { startScheduler } from './cleanup.js';
 import cors from 'cors';
-
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,32 +28,23 @@ function genId() {
 }
 
 app.post('/upload', upload.single('file'), (req, res) => {
-  const file = req.file;
-  const expires_seconds = req.body.expires_seconds ? parseInt(req.body.expires_seconds) : null;
-  const download_limit = req.body.download_limit ? parseInt(req.body.download_limit) : null;
-
   const fid = genId();
   const destPath = path.join(UPLOAD_DIR, `${fid}.enc`);
-  fs.renameSync(file.path, destPath);
-
-  const now = Math.floor(Date.now() / 1000);
-  const expires_at = expires_seconds ? now + expires_seconds : null;
+  fs.renameSync(req.file.path, destPath);
 
   const record = {
     id: fid,
     storage_path: destPath,
-    size: file.size,
-    uploaded_at: now,
-    expires_at,
-    download_limit,
+    size: req.file.size,
+    uploaded_at: Math.floor(Date.now() / 1000),
+    expires_at: req.body.expires_seconds ? Math.floor(Date.now() / 1000) + parseInt(req.body.expires_seconds) : null,
+    download_limit: req.body.download_limit ? parseInt(req.body.download_limit) : null,
     downloads_done: 0
   };
 
   insertFile(record);
   res.json({ id: fid, download_url: `/file/${fid}` });
 });
-
-
 
 app.get('/file/:fid', (req, res) => {
   const rec = getFile(req.params.fid);
@@ -101,11 +88,10 @@ app.get('/file/:fid/download', (req, res) => {
 
   incrementDownloads(rec.id);
   res.setHeader('Content-Disposition', `attachment; filename="${rec.id}.enc"`);
-  const stream = fs.createReadStream(rec.storage_path);
-  stream.pipe(res);
+  fs.createReadStream(rec.storage_path).pipe(res);
 });
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`GuardianBox Prototype running on http://0.0.0.0:${PORT}`);
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
 });
