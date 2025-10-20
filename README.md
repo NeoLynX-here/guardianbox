@@ -62,8 +62,10 @@ Before running the application, you need to update the server URLs in the follow
 
 Locate the fetch links and update them to your server address:
 
-javascript
+```javascript
+```
 // Example modification in both files:
+```
 fetch('YOUR_SERVER_ADDRESS/api/upload', {
     method: 'POST',
     headers: {
@@ -73,6 +75,7 @@ fetch('YOUR_SERVER_ADDRESS/api/upload', {
     },
     body: JSON.stringify(data)
 })
+```
 Header Configuration Note:
 If you're not using ngrok, remove the 'ngrok-skip-browser-warning' header
 
@@ -83,7 +86,7 @@ After starting both servers:
 
 Frontend: Typically runs on http://localhost:5173 (check your terminal for exact URL)
 
-Backend: Typically runs on http://localhost:3000
+Backend: Typically runs on http://localhost:8000
 
 
 🚀 Quick Start
@@ -120,7 +123,7 @@ Port Conflicts:
 
 Change ports in package.json (frontend) or main.js (backend)
 
-Ensure no other applications are using ports 3000 or 5173
+Ensure no other applications are using ports 8000 or 5173
 
 Dependency Issues:
 
