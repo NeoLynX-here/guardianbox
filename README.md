@@ -28,9 +28,9 @@ npm (usually comes with Node.js)
 
 🛠️ Installation & Setup
 1. Clone the Repository
-2. 
-```git clone https://github.com/adith485/guardianbox.git```
-```cd guardianbox```
+2. ```bash
+   git clone https://github.com/adith485/guardianbox.git
+    cd guardianbox```
 3. Backend Setup
 
 # Navigate to backend directory
