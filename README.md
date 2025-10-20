@@ -1,5 +1,5 @@
 
-# Project Title
+# GuardianBox
 
 A brief description of what this project does and who it's for
 GuardianBox - Secure File Sharing Service
