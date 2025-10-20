@@ -62,8 +62,8 @@ Before running the application, you need to update the server URLs in the follow
 
 Locate the fetch links and update them to your server address:
 
-```javascript
-```
+javascript
+
 // Example modification in both files:
 ```
 fetch('YOUR_SERVER_ADDRESS/api/upload', {
@@ -102,7 +102,7 @@ Access application at the URL shown in frontend terminal
 
 🔧 Development Scripts
 Frontend (in /src directory)
-bash
+```bash
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run preview      # Preview production build
