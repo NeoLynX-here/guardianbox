@@ -3,10 +3,6 @@
 
 A brief description of what this project does and who it's for
 GuardianBox - Secure File Sharing Service
-https://img.shields.io/badge/GuardianBox-File%2520Sharing-blue
-https://img.shields.io/badge/Node.js-18%252B-green
-https://img.shields.io/badge/React-18-blue
-https://img.shields.io/badge/License-MIT-yellow
 
 A modern, secure file sharing service built with React frontend and Node.js backend that allows users to upload and download files with ease.
 
