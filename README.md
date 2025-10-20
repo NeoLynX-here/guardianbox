@@ -1,5 +1,12 @@
-GuardianBox - Secure File Sharing Service
 
+# Project Title
+
+A brief description of what this project does and who it's for
+GuardianBox - Secure File Sharing Service
+https://img.shields.io/badge/GuardianBox-File%2520Sharing-blue
+https://img.shields.io/badge/Node.js-18%252B-green
+https://img.shields.io/badge/React-18-blue
+https://img.shields.io/badge/License-MIT-yellow
 
 A modern, secure file sharing service built with React frontend and Node.js backend that allows users to upload and download files with ease.
 
@@ -80,21 +87,7 @@ Frontend: Typically runs on http://localhost:5173 (check your terminal for exact
 
 Backend: Typically runs on http://localhost:3000
 
-Open your browser and navigate to the frontend URL shown in the terminal.
 
-📁 Project Structure
-text
-guardianbox/
-├── src/                 # React frontend
-│   ├── components/
-│   │   ├── UploadPage.jsx
-│   │   └── DownloadPage.jsx
-│   ├── ...
-│   └── package.json
-├── backend/            # Node.js backend
-│   ├── main.js
-│   └── package.json
-└── README.md
 🚀 Quick Start
 Clone and setup the project as shown above
 
@@ -152,18 +145,7 @@ Ensure no firewall is blocking the ports
 
 Check the browser console for any error messages
 
-📄 License
-This project is licensed under the MIT License.
 
-🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
 
-📞 Support
-If you encounter any problems or have questions:
 
-Check the troubleshooting section above
-
-Ensure all setup steps were followed correctly
-
-Verify Node.js version compatibility
 
