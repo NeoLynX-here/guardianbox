@@ -8,52 +8,60 @@ export default function DownloadPage({ fileId }) {
   const [status, setStatus] = useState("");
 
   async function loadMeta() {
-    setStatus("Loading metadata...");
-    try {
-      const res = await fetch(`http://192.168.68.104:8000/file/${fileId}`);
-      if (!res.ok) {
-        const err = await res.json();
-        setStatus(err.detail || "Not found");
-        return;
+  setStatus("Loading metadata...");
+  try {
+    const res = await fetch(`https://c892a0788c45.ngrok-free.app/file/${fileId}`, {
+      headers: {
+        "ngrok-skip-browser-warning": "1"
       }
-      const data = await res.json();
-      setMeta(data);
-      setStatus("Ready");
-    } catch (e) {
-      setStatus("Error fetching metadata");
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      setStatus(err.detail || "Not found");
+      return;
     }
+    const data = await res.json();
+    setMeta(data);
+    setStatus("Ready");
+  } catch (e) {
+    setStatus("Error fetching metadata");
   }
+}
 
-  async function downloadAndDecrypt() {
-    if (!password) return alert("enter password");
-    setStatus("Downloading ciphertext...");
-    try {
-      const res = await fetch(`http://192.168.68.104:8000/file/${fileId}/download`);
-      if (!res.ok) {
-        const err = await res.json();
-        setStatus(err.detail || "download failed");
-        return;
+async function downloadAndDecrypt() {
+  if (!password) return alert("enter password");
+  setStatus("Downloading ciphertext...");
+  try {
+    const res = await fetch(`https://c892a0788c45.ngrok-free.app/file/${fileId}/download`, {
+      headers: {
+        "ngrok-skip-browser-warning": "1"
       }
-      const blob = await res.blob();
-      setStatus("Decrypting...");
-      try {
-        const { filename, fileBlob } = await decryptPackage(blob, password);
-        const url = URL.createObjectURL(fileBlob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setStatus("Done");
-      } catch (decErr) {
-        setStatus(decErr.message || "decryption failed");
-      }
-    } catch (e) {
-      console.error(e);
-      setStatus("download error");
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      setStatus(err.detail || "download failed");
+      return;
     }
+    const blob = await res.blob();
+    setStatus("Decrypting...");
+    try {
+      const { filename, fileBlob } = await decryptPackage(blob, password);
+      const url = URL.createObjectURL(fileBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setStatus("Done");
+    } catch (decErr) {
+      setStatus(decErr.message || "decryption failed");
+    }
+  } catch (e) {
+    console.error(e);
+    setStatus("download error");
   }
+}
 
   // load metadata on mount
   React.useEffect(() => {
