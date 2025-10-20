@@ -28,31 +28,31 @@ npm (usually comes with Node.js)
 
 🛠️ Installation & Setup
 1. Clone the Repository
-bash
-git clone <your-repository-url>
-cd guardianbox
-2. Backend Setup
-bash
+2. 
+git clone 
+```cd guardianbox```
+3. Backend Setup
+
 # Navigate to backend directory
-cd backend
+```cd backend```
 
 # Install dependencies
-npm install
+```npm install```
 
 # Start the backend server
-node main.js
+```node main.js```
 3. Frontend Setup
 Open a new terminal window and run:
 
-bash
+
 # Navigate to src directory (from project root)
-cd src
+```cd src```
 
 # Install dependencies
-npm install
+```npm install```
 
 # Start the development server
-npm run dev -- --host
+```npm run dev -- --host```
 ⚙️ Configuration
 Important: Update Server URLs
 Before running the application, you need to update the server URLs in the following files:
@@ -65,7 +65,7 @@ Locate the fetch links and update them to your server address:
 javascript
 
 // Example modification in both files:
-```
+```javascript
 fetch('YOUR_SERVER_ADDRESS/api/upload', {
     method: 'POST',
     headers: {
@@ -109,8 +109,8 @@ npm run preview      # Preview production build
 Backend (in /backend directory)
 bash
 node main.js         # Start backend server
-# or for development
-npx nodemon main.js  # Start with auto-restart (if nodemon installed)
+```
+
 🚨 Troubleshooting
 Common Issues:
 CORS Errors:
@@ -127,10 +127,11 @@ Ensure no other applications are using ports 8000 or 5173
 
 Dependency Issues:
 
-bash
+```bash
 # Delete node_modules and reinstall
 rm -rf node_modules
 npm install
+```
 Connection Issues:
 
 Verify both frontend and backend servers are running
