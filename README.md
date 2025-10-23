@@ -76,14 +76,10 @@ Before running the app, configure your backend server URL in the following files
 Locate the `fetch` calls and modify them as follows:
 
 ```javascript
-fetch('YOUR_SERVER_ADDRESS/api/upload', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    // Optional: only needed if using ngrok
-    'ngrok-skip-browser-warning': '1'
-  },
-  body: JSON.stringify(data)
+const res = await fetch(`http://localhost:8000/file/${fileId}`, {
+      headers: {
+        "ngrok-skip-browser-warning": "1"
+      }
 });
 ```
 
@@ -156,7 +152,7 @@ node main.js      # Start backend server
 
 * Frontend default: `5173`
 * Backend default: `8000`
-  Change ports in `package.json` (frontend) or `main.js` (backend) if needed.
+  Change ports in `vite.config.mjs` (frontend) or `main.js` (backend) if needed.
 
 ### 3. **Dependency Issues**
 
