@@ -11,7 +11,7 @@ export default function DownloadPage({ fileId }) {
   async function loadMeta() {
     setStatus("Loading metadata...");
     try {
-      const res = await fetch(`https://candra-verificatory-nonspherically.ngrok-free.dev/file/${fileId}`, {
+      const res = await fetch(`http://localhost:8000/file/${fileId}`, {
       headers: {
         "ngrok-skip-browser-warning": "1"
       }
@@ -33,7 +33,7 @@ export default function DownloadPage({ fileId }) {
     if (!password) return alert("Please enter the decryption password");
     setStatus("Downloading encrypted file...");
     try {
-      const res = await fetch(`https://candra-verificatory-nonspherically.ngrok-free.dev/file/${fileId}`, {
+      const res = await fetch(`localhost:8000/file/${fileId}`, {
       headers: {
         "ngrok-skip-browser-warning": "1"
       }
