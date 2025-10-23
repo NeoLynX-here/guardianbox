@@ -1,9 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "simple storage serv",
   "main": "main.js",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.913.0",
     "accepts": "^2.0.0",
     "append-field": "^1.0.0",
     "base64-js": "^1.5.1",
@@ -29,6 +30,7 @@
     "deep-extend": "^0.6.0",
     "depd": "^2.0.0",
     "detect-libc": "^2.1.2",
+    "dotenv": "^17.2.3",
     "dunder-proto": "^1.0.1",
     "ee-first": "^1.1.1",
     "encodeurl": "^2.0.0",
@@ -118,12 +120,12 @@
     "wrappy": "^1.0.2",
     "xtend": "^4.0.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "lynx",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {}
 }
