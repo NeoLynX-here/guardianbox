@@ -73,7 +73,7 @@ export default function UploadPage() {
     if (downloadLimit) fd.append("download_limit", String(Number(downloadLimit)));
 
     try {
-      const res = await fetch("https://candra-verificatory-nonspherically.ngrok-free.dev/upload", {
+      const res = await fetch("http://localhost:8000/upload", {
         method: "POST",
         body: fd
       });
