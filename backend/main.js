@@ -24,9 +24,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-    "http://localhost:5173",
     "https://guardianbox.netlify.app/", 
-    "http://127.0.0.1"
   ],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
