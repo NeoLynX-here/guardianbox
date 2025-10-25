@@ -193,7 +193,7 @@ export default function UploadPage() {
       if (expires) formData.append("expires_seconds", String(Math.max(60, Number(expires))));
       if (downloadLimit) formData.append("download_limit", String(Math.max(1, Number(downloadLimit))));
 
-      const response = await fetch("https://candra-verificatory-nonspherically.ngrok-free.dev/upload", {
+      const response = await fetch("https://localhost/upload", {
         method: "POST",
         body: formData
       });
