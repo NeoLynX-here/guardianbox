@@ -30,7 +30,18 @@ function genId() {
 app.post('/upload', upload.single('file'), (req, res) => {
   const fid = genId();
   const destPath = path.join(UPLOAD_DIR, `${fid}.enc`);
-  fs.renameSync(req.file.path, destPath);
+  let tempPath;
+  try {
+    tempPath = fs.realpathSync(path.resolve(req.file.path));
+  } catch (e) {
+    return res.status(400).json({ detail: 'invalid upload path' });
+  }
+  // Ensure the temp path is inside the intended upload directory
+  const absUploadDir = fs.realpathSync(UPLOAD_DIR);
+  if (!tempPath.startsWith(absUploadDir + path.sep)) {
+    return res.status(400).json({ detail: 'invalid upload path' });
+  }
+  fs.renameSync(tempPath, destPath);
 
   const record = {
     id: fid,
