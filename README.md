@@ -55,7 +55,7 @@ This starts the backend server (default: **[http://localhost:8000](http://localh
 Open a new terminal window:
 
 ```bash
-cd src
+cd ../
 npm install
 npm run dev -- --host
 ```
