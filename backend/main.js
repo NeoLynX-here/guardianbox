@@ -3,6 +3,7 @@ import express from 'express';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+import rateLimit from 'express-rate-limit';
 import { fileURLToPath } from 'url';
 import { v4 as uuidv4 } from 'uuid';
 import { initDb, insertFile, getFile, incrementDownloads, deleteFile } from './db.js';
@@ -19,6 +20,15 @@ const UPLOAD_DIR = path.join(__dirname, 'uploads');
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR);
 
 const upload = multer({ dest: UPLOAD_DIR });
+
+// Set up rate limiter: e.g., max 100 requests per 15 minutes per IP
+const downloadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { detail: 'Too many download requests from this IP, please try again later.' }
+});
 
 initDb();
 startScheduler();
@@ -77,7 +87,7 @@ app.get('/file/:fid', (req, res) => {
   });
 });
 
-app.get('/file/:fid/download', (req, res) => {
+app.get('/file/:fid/download', downloadLimiter, (req, res) => {
   const rec = getFile(req.params.fid);
   if (!rec) return res.status(404).json({ detail: 'file not found' });
 

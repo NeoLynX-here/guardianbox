@@ -116,7 +116,8 @@
     "uuid": "^13.0.0",
     "vary": "^1.1.2",
     "wrappy": "^1.0.2",
-    "xtend": "^4.0.2"
+    "xtend": "^4.0.2",
+    "express-rate-limit": "^8.2.1"
   },
   "devDependencies": {},
   "scripts": {
