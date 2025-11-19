@@ -30,14 +30,19 @@ const downloadLimiter = rateLimit({
   message: { detail: 'Too many download requests from this IP, please try again later.' }
 });
 
+// Set up rate limiter for uploads (stricter: e.g. 20 uploads per 15 min per IP)
+const uploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { detail: 'Too many upload requests from this IP, please try again later.' }
+});
+
 initDb();
 startScheduler();
 
-function genId() {
-  return uuidv4().replace(/-/g, '').slice(0, 12);
-}
-
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/upload', uploadLimiter, upload.single('file'), (req, res) => {
   const fid = genId();
   const destPath = path.join(UPLOAD_DIR, `${fid}.enc`);
   let tempPath;
